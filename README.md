@@ -9,6 +9,7 @@ Esse aplicativo visa auxiliar no processo de estudo e memorização de usando o 
 + Spring 2.4.1
   + Spring Web
   + Spring JPA
+  + Thymeleaf
 + Lombok
 + MapStructure
 
