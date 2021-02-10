@@ -1,6 +1,6 @@
 package com.github.sammejanderson.StudyAssistApp.mapping;
 
-import com.github.sammejanderson.StudyAssistApp.dto.FlashcardDTO;
+import com.github.sammejanderson.StudyAssistApp.dto.request.FlashcardDTO;
 import com.github.sammejanderson.StudyAssistApp.entity.Flashcard;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
