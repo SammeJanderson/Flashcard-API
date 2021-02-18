@@ -2,7 +2,9 @@ package com.github.sammejanderson.StudyAssistApp.controller;
 
 import com.github.sammejanderson.StudyAssistApp.dto.request.FlashcardDTO;
 import com.github.sammejanderson.StudyAssistApp.dto.response.MessageDTO;
+import com.github.sammejanderson.StudyAssistApp.enums.Container;
 import com.github.sammejanderson.StudyAssistApp.exception.CardNotFoundException;
+import com.github.sammejanderson.StudyAssistApp.exception.ContainerUpdateException;
 import com.github.sammejanderson.StudyAssistApp.service.FlashcardService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +41,15 @@ public class FlashcardController {
         flashcardService.deleteCardById(id);
     }
 
-    @PostMapping("/{id}")
-    public MessageDTO updateCardById(Long id, @RequestBody @Valid FlashcardDTO flashcardDTO) throws CardNotFoundException {
+    @PutMapping("/{id}")
+    public MessageDTO updateCardById(@PathVariable Long id, @RequestBody FlashcardDTO flashcardDTO) throws CardNotFoundException {
         return flashcardService.updateCardById(id, flashcardDTO);
     }
 
-
+    @PutMapping("/{id}/cont")
+    public MessageDTO updateCardContainer(@PathVariable Long id, @RequestParam Container container) throws CardNotFoundException, ContainerUpdateException {
+        return flashcardService.updateCardContainerById(id, container);
+    }
 
 
 }
