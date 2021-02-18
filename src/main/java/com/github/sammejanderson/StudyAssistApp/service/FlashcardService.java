@@ -3,7 +3,9 @@ package com.github.sammejanderson.StudyAssistApp.service;
 import com.github.sammejanderson.StudyAssistApp.dto.request.FlashcardDTO;
 import com.github.sammejanderson.StudyAssistApp.dto.response.MessageDTO;
 import com.github.sammejanderson.StudyAssistApp.entity.Flashcard;
+import com.github.sammejanderson.StudyAssistApp.enums.Container;
 import com.github.sammejanderson.StudyAssistApp.exception.CardNotFoundException;
+import com.github.sammejanderson.StudyAssistApp.exception.ContainerUpdateException;
 import com.github.sammejanderson.StudyAssistApp.mapping.FlashcardMapper;
 import com.github.sammejanderson.StudyAssistApp.repository.FlashcardRepository;
 import lombok.AllArgsConstructor;
@@ -17,7 +19,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class FlashcardService {
 
-    private final FlashcardMapper flashcardMapper;
+    private final FlashcardMapper flashcardMapper = FlashcardMapper.INSTANCE;
     private FlashcardRepository repository;
 
 
@@ -45,13 +47,23 @@ public class FlashcardService {
         repository.deleteById(id);
     }
 
-    public MessageDTO updateCardById(Long id, FlashcardDTO flashcardDTO) throws CardNotFoundException{
+    public MessageDTO updateCardById(Long id, FlashcardDTO flashcardDTO) throws CardNotFoundException {
         verifyIfExists(id);
-        Flashcard cardToUpdate =  flashcardMapper.toModel(flashcardDTO);
+        Flashcard cardToUpdate = flashcardMapper.toModel(flashcardDTO);
 
         Flashcard updatedCard = repository.save(cardToUpdate);
-        return CreateMessageDTO("Updated Card with Id: ",updatedCard.getId());
+        return CreateMessageDTO("Updated Card with Id: ", updatedCard.getId());
 
+    }
+
+    public MessageDTO updateCardContainerById(Long id, Container container) throws CardNotFoundException, ContainerUpdateException {
+        Flashcard cardToUpdate = verifyIfExists(id);
+        if (container != Container.DAY) {
+            cardToUpdate.setContainer(container);
+        } else {
+            throw new ContainerUpdateException(id);
+        }
+        return CreateMessageDTO("Container updated for card with id: ", cardToUpdate.getId());
     }
 
 
