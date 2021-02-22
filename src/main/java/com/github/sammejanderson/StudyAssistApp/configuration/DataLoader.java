@@ -19,6 +19,10 @@ public class DataLoader implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         this.flashcardService.createNewCard(new FlashcardDTO(1L, "Pergunta", "Resposta", Container.DAY));
-        this.flashcardService.createNewCard(new FlashcardDTO(2L, "Pergunta", "Resposta", Container.WEEK));
+        this.flashcardService.createNewCard(new FlashcardDTO(2L, "Pergunta", "Resposta", Container.TWODAYS));
+        this.flashcardService.createNewCard(new FlashcardDTO(3L, "Pergunta", "Resposta", Container.WEEK));
+        this.flashcardService.createNewCard(new FlashcardDTO(4L, "Pergunta", "Resposta", Container.TWOWEEKS));
+        this.flashcardService.createNewCard(new FlashcardDTO(5L, "Pergunta", "Resposta", Container.MONTH));
+        this.flashcardService.createNewCard(new FlashcardDTO(6L, "Pergunta", "Resposta", Container.RETIRED));
     }
 }

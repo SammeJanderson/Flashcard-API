@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{css/main.css}" rel="stylesheet"/>
+</head>
+<body>
+<div>
+
+    <div class="day">
+        <table>
+            <tr>
+                <th>Dia</th>
+            </tr>
+            <tr th:each="card : ${allCards}">
+                <td th:text="${card.front}" class="question"/>
+                <td th:text="${card.verse}" class="answer"/>
+            </tr>
+            <button onclick="myFunction()">Click Me</button>
+        </table>
+    </div>
+</div>
+
+<script th:src="@{js/main.js}"></script>
+</body>
+</html>
