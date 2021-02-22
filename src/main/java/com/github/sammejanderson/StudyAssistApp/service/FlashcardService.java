@@ -60,10 +60,12 @@ public class FlashcardService {
         Flashcard cardToUpdate = verifyIfExists(id);
         if (container != Container.DAY) {
             cardToUpdate.setContainer(container);
+            repository.save(cardToUpdate);
+            return CreateMessageDTO("Container updated for card with id: ", cardToUpdate.getId());
         } else {
             throw new ContainerUpdateException(id);
         }
-        return CreateMessageDTO("Container updated for card with id: ", cardToUpdate.getId());
+
     }
 
 
