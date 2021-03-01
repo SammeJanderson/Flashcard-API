@@ -11,17 +11,34 @@
     <div class="day">
         <table>
             <tr>
-                <th>Dia</th>
+                <th>Frente</th>
+                <th>Verso</th>
+                <th>Container</th>
+
             </tr>
-            <tr th:each="card : ${allCards}">
-                <td th:text="${card.front}" class="question"/>
-                <td th:text="${card.verse}" class="answer"/>
+            <tr th:object="${card}" th:each="card : ${allCards}">
+                <div th:if="*{container == T(com.github.sammejanderson.StudyAssistApp.enums.Container).DAY}">
+                    <td th:text="*{front}"/>
+                    <td th:text="*{verse}"/>
+                    <td th:text="*{container}"/>
+                </div>
+
+
+
             </tr>
-            <button onclick="myFunction()">Click Me</button>
+
+            <select name="color">
+                <option th:each="container : ${T(com.github.sammejanderson.StudyAssistApp.enums.Container).values()}"
+                th:value="${container}" th:text="${container}"
+                ></option>
+
+
+            </select>
+
+
         </table>
     </div>
 </div>
 
-<script th:src="@{js/main.js}"></script>
 </body>
 </html>
