@@ -53,8 +53,13 @@ public class FlashcardService {
 
         Flashcard updatedCard = repository.save(cardToUpdate);
         return CreateMessageDTO("Updated Card with Id: ", updatedCard.getId());
-
     }
+
+    public List<FlashcardDTO> getByCategory(Container container) {
+        List<Flashcard> allCards = repository.findAll();
+        return allCards.stream().filter(n -> n.getContainer() == container)
+                .map(flashcardMapper::toDTO).collect(Collectors.toList());
+   }
 
     public MessageDTO updateCardContainerById(Long id, Container container) throws CardNotFoundException, ContainerUpdateException {
         Flashcard cardToUpdate = verifyIfExists(id);

@@ -36,6 +36,11 @@ public class FlashcardController {
         return flashcardService.findCardsById(id);
     }
 
+    @GetMapping("/sort")
+    public List<FlashcardDTO> getByContainer(@RequestParam Container container) {
+        return flashcardService.getByCategory(container);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteCardById(@PathVariable Long id) throws CardNotFoundException {
         flashcardService.deleteCardById(id);

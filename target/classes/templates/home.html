@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link th:href="@{css/main.css}" rel="stylesheet"/>
+    <link type="text/css" href="css/main.css" rel="stylesheet" />
 </head>
 <body>
 <div>
@@ -16,29 +16,44 @@
                 <th>Container</th>
 
             </tr>
-            <tr th:object="${card}" th:each="card : ${allCards}">
-                <div th:if="*{container == T(com.github.sammejanderson.StudyAssistApp.enums.Container).DAY}">
-                    <td th:text="*{front}"/>
-                    <td th:text="*{verse}"/>
-                    <td th:text="*{container}"/>
-                </div>
+<!--            <tr th:object="${card}" th:each="card : ${allCards}">-->
+<!--                <div th:if="*{container == T(com.github.sammejanderson.StudyAssistApp.enums.Container).DAY}">-->
+<!--                    <td th:text="*{front}"/>-->
+<!--                    <td th:text="*{verse}"/>-->
+<!--                    <td th:text="*{container}"/>-->
+<!--                </div>-->
 
 
 
             </tr>
 
-            <select name="color">
-                <option th:each="container : ${T(com.github.sammejanderson.StudyAssistApp.enums.Container).values()}"
-                th:value="${container}" th:text="${container}"
-                ></option>
 
 
-            </select>
+
 
 
         </table>
     </div>
+
+    <button value="Começar a Estudar">ESTUDAR</button>
+    <button value="Começar a Estudar">ADCIONAR CARD</button>
+    <button id="myBtn">GERENCIAR CARDS</button>
+
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>
+                <button>Remover Card</button>
+                <button>Ver Todos os Cards</button>
+            </p>
+        </div>
+
+    </div>
+
 </div>
 
+<script src="js/main.js"></script>
 </body>
 </html>
