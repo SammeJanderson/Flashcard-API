@@ -34,6 +34,21 @@ public class FlashcardDTO {
     private String nextRevision;
 
 
+    /* quando o flash card for criado ele deve ser colocado no container day, a data da ultimarevisão será a data de criação e a data da proxima revisão será definido de acordo com o container*/
+    public FlashcardDTO(String front, String verse) {
+        this.front = front;
+        this.verse = verse;
+        this.container = Container.DAY;
+        this.lastRevision = null;
+        this.nextRevision = null;
+    }
+
+
+
+
+
+
+
 
 }
 
