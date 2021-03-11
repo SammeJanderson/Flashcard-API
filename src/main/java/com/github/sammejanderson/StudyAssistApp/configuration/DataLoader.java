@@ -9,6 +9,9 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+import java.util.Date;
+
 @Component
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class DataLoader implements ApplicationRunner {
@@ -18,11 +21,9 @@ public class DataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        this.flashcardService.createNewCard(new FlashcardDTO(1L, "Pergunta1", "Resposta", Container.DAY));
-        this.flashcardService.createNewCard(new FlashcardDTO(2L, "Pergunta", "Resposta", Container.DAY));
-        this.flashcardService.createNewCard(new FlashcardDTO(3L, "Pergunta", "Resposta", Container.WEEK));
-        this.flashcardService.createNewCard(new FlashcardDTO(4L, "Pergunta", "Resposta", Container.TWOWEEKS));
-        this.flashcardService.createNewCard(new FlashcardDTO(5L, "Pergunta", "Resposta", Container.MONTH));
-        this.flashcardService.createNewCard(new FlashcardDTO(6L, "Pergunta", "Resposta", Container.RETIRED));
+        this.flashcardService.createNewCard(new FlashcardDTO("Pergunta1", "Resposta"));
+        this.flashcardService.createNewCard(new FlashcardDTO("Pergunta1", "Resposta"));
+        this.flashcardService.createNewCard(new FlashcardDTO("Pergunta1", "Resposta"));
+        this.flashcardService.createNewCard(new FlashcardDTO("Pergunta1", "Resposta"));
     }
 }

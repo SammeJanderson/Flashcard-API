@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.util.Date;
 
 @Entity
 @Data
@@ -27,4 +29,10 @@ public class Flashcard {
 
     @Column(nullable = false)
     private Container container;
+
+    @Column
+    private String lastRevision;
+
+    @Column
+    private String nextRevision;
 }

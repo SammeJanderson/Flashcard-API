@@ -6,7 +6,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-02-22T13:43:04-0300",
+    date = "2021-03-11T11:50:51-0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 15.0.2 (Oracle Corporation)"
 )
 public class FlashcardMapperImpl implements FlashcardMapper {
@@ -23,6 +23,8 @@ public class FlashcardMapperImpl implements FlashcardMapper {
         flashcard.setFront( flashcardDTO.getFront() );
         flashcard.setVerse( flashcardDTO.getVerse() );
         flashcard.setContainer( flashcardDTO.getContainer() );
+        flashcard.setLastRevision( flashcardDTO.getLastRevision() );
+        flashcard.setNextRevision( flashcardDTO.getNextRevision() );
 
         return flashcard;
     }
@@ -39,6 +41,8 @@ public class FlashcardMapperImpl implements FlashcardMapper {
         flashcardDTO.setFront( flashcard.getFront() );
         flashcardDTO.setVerse( flashcard.getVerse() );
         flashcardDTO.setContainer( flashcard.getContainer() );
+        flashcardDTO.setLastRevision( flashcard.getLastRevision() );
+        flashcardDTO.setNextRevision( flashcard.getNextRevision() );
 
         return flashcardDTO;
     }
