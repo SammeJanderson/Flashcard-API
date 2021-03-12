@@ -5,7 +5,6 @@ import com.github.sammejanderson.StudyAssistApp.exception.ContainerDoesNotExists
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
@@ -40,18 +39,15 @@ public class TimeManager {
     }
 
 
-    public static String formatTime(LocalDate date){
+    public static String formatTime(LocalDate date) {
         return formatter.format(date);
     }
 
     public static String findNextDate(String s, Container container) throws ContainerDoesNotExists {
-        LocalDate date = LocalDate.parse(s,formatter)
+        LocalDate date = LocalDate.parse(s, formatter)
                 .plus(convertContainerToNumOfDays(container), ChronoUnit.DAYS);
         return formatTime(date);
     }
-
-
-
 
 
 }

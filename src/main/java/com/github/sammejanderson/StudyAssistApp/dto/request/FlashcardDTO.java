@@ -1,15 +1,16 @@
 package com.github.sammejanderson.StudyAssistApp.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
 import com.github.sammejanderson.StudyAssistApp.enums.Container;
 import com.github.sammejanderson.StudyAssistApp.exception.ContainerDoesNotExists;
 import com.github.sammejanderson.StudyAssistApp.utils.TimeManager;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import java.time.*;
+import java.time.LocalDate;
 
 @Data
 @Builder

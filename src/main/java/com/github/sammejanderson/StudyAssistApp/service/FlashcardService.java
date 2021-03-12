@@ -5,9 +5,10 @@ import com.github.sammejanderson.StudyAssistApp.dto.response.MessageDTO;
 import com.github.sammejanderson.StudyAssistApp.entity.Flashcard;
 import com.github.sammejanderson.StudyAssistApp.enums.Container;
 import com.github.sammejanderson.StudyAssistApp.exception.CardNotFoundException;
-import com.github.sammejanderson.StudyAssistApp.exception.ContainerUpdateException;
+import com.github.sammejanderson.StudyAssistApp.exception.ContainerDoesNotExists;
 import com.github.sammejanderson.StudyAssistApp.mapping.FlashcardMapper;
 import com.github.sammejanderson.StudyAssistApp.repository.FlashcardRepository;
+import com.github.sammejanderson.StudyAssistApp.utils.TimeManager;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,7 +64,7 @@ public class FlashcardService {
 
 
     //Recebe o id da carta e um boleano indicando se a pergunta foi respondida de forma correta ou não se a carta foi respondida de forma correta e não estiver "apesentada" ela passa para o proximo container
-    public MessageDTO promoteCardToNextContainer(Long id, Boolean correct) throws CardNotFoundException {
+    public MessageDTO promoteCardToNextContainer(Long id, Boolean correct) throws CardNotFoundException, ContainerDoesNotExists {
         Flashcard cardToUpdate = verifyIfExists(id);
         boolean isRetired = cardToUpdate.getContainer() == Container.RETIRED;
 
@@ -72,6 +73,7 @@ public class FlashcardService {
         } else {
             cardToUpdate.setContainer(Container.DAY);
         }
+        updateDates(cardToUpdate);
         repository.save(cardToUpdate);
 
         return CreateMessageDTO("Container updated for card with id: ", cardToUpdate.getId());
@@ -94,4 +96,11 @@ public class FlashcardService {
         nextIndex %= containers.length;
         return containers[nextIndex];
     }
+
+
+    private void updateDates(Flashcard flashcard) throws ContainerDoesNotExists {
+        flashcard.setLastRevision(flashcard.getNextRevision());
+        flashcard.setNextRevision(TimeManager.findNextDate(flashcard.getLastRevision(), flashcard.getContainer()));
+    }
+
 }

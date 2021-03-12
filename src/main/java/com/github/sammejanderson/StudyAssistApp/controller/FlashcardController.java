@@ -4,6 +4,7 @@ import com.github.sammejanderson.StudyAssistApp.dto.request.FlashcardDTO;
 import com.github.sammejanderson.StudyAssistApp.dto.response.MessageDTO;
 import com.github.sammejanderson.StudyAssistApp.enums.Container;
 import com.github.sammejanderson.StudyAssistApp.exception.CardNotFoundException;
+import com.github.sammejanderson.StudyAssistApp.exception.ContainerDoesNotExists;
 import com.github.sammejanderson.StudyAssistApp.exception.ContainerUpdateException;
 import com.github.sammejanderson.StudyAssistApp.service.FlashcardService;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ public class FlashcardController {
         return flashcardService.createNewCard(flashcardDTO);
     }
 
-    @GetMapping
+    @GetMapping("/")
     public List<FlashcardDTO> listAllCards() {
         return flashcardService.listAllCards();
     }
@@ -52,8 +53,8 @@ public class FlashcardController {
     }
 
     @PatchMapping("/{id}")
-    public MessageDTO updateCardContainer(@PathVariable Long id, @RequestParam Boolean correct) throws CardNotFoundException, ContainerUpdateException {
-        return flashcardService.promoteCardToNextContainer(id,correct);
+    public MessageDTO updateCardContainer(@PathVariable Long id, @RequestParam Boolean correct) throws CardNotFoundException, ContainerUpdateException, ContainerDoesNotExists {
+        return flashcardService.promoteCardToNextContainer(id, correct);
     }
 
 

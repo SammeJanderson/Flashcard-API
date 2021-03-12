@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class CardNotFoundException extends Exception {
-    public CardNotFoundException(long id){
-        super ("Card with Id: "+ id + " not found");
+    public CardNotFoundException(long id) {
+        super("Card with Id: " + id + " not found");
     }
 
 }
