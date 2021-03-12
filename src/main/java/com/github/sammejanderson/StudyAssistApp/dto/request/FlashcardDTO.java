@@ -1,12 +1,11 @@
 package com.github.sammejanderson.StudyAssistApp.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.github.sammejanderson.StudyAssistApp.enums.Container;
 import com.github.sammejanderson.StudyAssistApp.exception.ContainerDoesNotExists;
 import com.github.sammejanderson.StudyAssistApp.utils.TimeManager;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,8 +18,6 @@ import java.time.*;
 public class FlashcardDTO {
 
 
-
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -28,23 +25,36 @@ public class FlashcardDTO {
 
     private String verse;
 
-    private Container container;
+    private Container container = Container.DAY;
+    ;
 
-    private String lastRevision;
+    private String lastRevision = TimeManager.formatTime(LocalDate.now());
+    ;
 
     private String nextRevision;
 
+    {
+        try {
+            nextRevision = TimeManager.findNextDate(lastRevision, container);
+        } catch (ContainerDoesNotExists containerDoesNotExists) {
+            containerDoesNotExists.printStackTrace();
+        }
+    }
 
-    /* quando o flashcard for criado ele deve ser colocado no container day, a data da ultimarevisão será a data de criação e a data da proxima revisão será definido de acordo com o container*/
+    ;
+
+
+    /* esse cosntrutor só serve pra usar o dataloadder*/
+    //TODO: apagar esse contructor quando não for mais nescessário
     public FlashcardDTO(String front, String verse) throws ContainerDoesNotExists {
         this.front = front;
         this.verse = verse;
         this.container = Container.DAY;
         this.lastRevision = TimeManager.formatTime(LocalDate.now());
-        this.nextRevision = TimeManager.findNextDate(lastRevision,container);
+        this.nextRevision = TimeManager.findNextDate(lastRevision, container);
     }
 
 
-    }
+}
 
 

@@ -52,8 +52,8 @@ public class FlashcardController {
     }
 
     @PatchMapping("/{id}")
-    public MessageDTO updateCardContainer(@PathVariable Long id, @RequestParam Container container) throws CardNotFoundException, ContainerUpdateException {
-        return flashcardService.updateCardContainerById(id, container);
+    public MessageDTO updateCardContainer(@PathVariable Long id, @RequestParam Boolean correct) throws CardNotFoundException, ContainerUpdateException {
+        return flashcardService.promoteCardToNextContainer(id,correct);
     }
 
 

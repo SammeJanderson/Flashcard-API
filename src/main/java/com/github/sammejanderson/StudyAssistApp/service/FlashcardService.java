@@ -59,18 +59,22 @@ public class FlashcardService {
         List<Flashcard> allCards = repository.findAll();
         return allCards.stream().filter(n -> n.getContainer() == container)
                 .map(flashcardMapper::toDTO).collect(Collectors.toList());
-   }
+    }
 
-    public MessageDTO updateCardContainerById(Long id, Container container) throws CardNotFoundException, ContainerUpdateException {
+
+    //Recebe o id da carta e um boleano indicando se a pergunta foi respondida de forma correta ou não se a carta foi respondida de forma correta e não estiver "apesentada" ela passa para o proximo container
+    public MessageDTO promoteCardToNextContainer(Long id, Boolean correct) throws CardNotFoundException {
         Flashcard cardToUpdate = verifyIfExists(id);
-        if (container != Container.DAY) {
-            cardToUpdate.setContainer(container);
-            repository.save(cardToUpdate);
-            return CreateMessageDTO("Container updated for card with id: ", cardToUpdate.getId());
-        } else {
-            throw new ContainerUpdateException(id);
-        }
+        boolean isRetired = cardToUpdate.getContainer() == Container.RETIRED;
 
+        if (correct && !isRetired) {
+            cardToUpdate.setContainer(findNextContainer(cardToUpdate.getContainer()));
+        } else {
+            cardToUpdate.setContainer(Container.DAY);
+        }
+        repository.save(cardToUpdate);
+
+        return CreateMessageDTO("Container updated for card with id: ", cardToUpdate.getId());
     }
 
 
@@ -81,6 +85,13 @@ public class FlashcardService {
 
     private Flashcard verifyIfExists(Long id) throws CardNotFoundException {
         return repository.findById(id).orElseThrow(() -> new CardNotFoundException(id));
+    }
 
+    private Container findNextContainer(Container c) {
+        int index = c.ordinal();
+        int nextIndex = index + 1;
+        Container[] containers = Container.values();
+        nextIndex %= containers.length;
+        return containers[nextIndex];
     }
 }

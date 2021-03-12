@@ -6,12 +6,13 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Container {
-    DAY("day"),
-    TWODAYS("two days"),
-    WEEK("week"),
-    TWOWEEKS("two weeks"),
-    MONTH("month"),
-    RETIRED("retired");
+    DAY("day",1),
+    TWODAYS("two days",2),
+    WEEK("week",3),
+    TWOWEEKS("two weeks",4),
+    MONTH("month",5),
+    RETIRED("retired",6);
 
     public String description;
+    public Integer step;
 }

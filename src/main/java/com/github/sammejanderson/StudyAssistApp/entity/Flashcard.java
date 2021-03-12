@@ -28,7 +28,7 @@ public class Flashcard {
     @Column(nullable = false)
     private String verse;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Container container;
 
     @Column
