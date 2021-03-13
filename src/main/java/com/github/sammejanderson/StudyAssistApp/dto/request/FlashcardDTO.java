@@ -45,17 +45,23 @@ public class FlashcardDTO {
     ;
 
 
-    /* esse cosntrutor só serve pra usar o dataloadder*/
-    //TODO: apagar esse contructor quando não for mais nescessário
-    public FlashcardDTO(String front, String verse) throws ContainerDoesNotExists {
+    /* esses construtores só servem pra usar o dataloadder*/
+    public FlashcardDTO(String front, String verse, Container container) throws ContainerDoesNotExists {
         this.front = front;
         this.verse = verse;
-        this.container = Container.DAY;
+        this.container = container;
         this.lastRevision = TimeManager.formatTime(LocalDate.now());
         this.nextRevision = TimeManager.findNextDate(lastRevision, container);
     }
 
 
+    public FlashcardDTO(String front, String verse, Container container, String lastRevision, String nextRevision) {
+        this.front = front;
+        this.verse = verse;
+        this.container = container;
+        this.lastRevision = lastRevision;
+        this.nextRevision = nextRevision;
+    }
 }
 
 

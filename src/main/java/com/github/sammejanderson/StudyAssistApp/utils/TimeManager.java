@@ -1,5 +1,6 @@
 package com.github.sammejanderson.StudyAssistApp.utils;
 
+import com.github.sammejanderson.StudyAssistApp.entity.Flashcard;
 import com.github.sammejanderson.StudyAssistApp.enums.Container;
 import com.github.sammejanderson.StudyAssistApp.exception.ContainerDoesNotExists;
 import org.springframework.stereotype.Component;
@@ -47,6 +48,12 @@ public class TimeManager {
         LocalDate date = LocalDate.parse(s, formatter)
                 .plus(convertContainerToNumOfDays(container), ChronoUnit.DAYS);
         return formatTime(date);
+    }
+
+    public static Boolean isTimeToReviseCard(Flashcard flashcard){
+        LocalDate today = LocalDate.now();
+        LocalDate cardNextRevision = LocalDate.parse(flashcard.getNextRevision(), formatter);
+        return today.isEqual(cardNextRevision) || today.isAfter(cardNextRevision) ;
     }
 
 

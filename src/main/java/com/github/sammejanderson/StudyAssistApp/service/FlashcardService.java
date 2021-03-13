@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,6 +78,14 @@ public class FlashcardService {
         repository.save(cardToUpdate);
 
         return CreateMessageDTO("Container updated for card with id: ", cardToUpdate.getId());
+    }
+
+
+    public List<FlashcardDTO> cardsToBeRevised(){
+        List<Flashcard> allCards = repository.findAll();
+        LocalDate today = LocalDate.now();
+        return allCards.stream().filter(card -> TimeManager.isTimeToReviseCard(card))
+                .map(flashcardMapper::toDTO).collect(Collectors.toList());
     }
 
 

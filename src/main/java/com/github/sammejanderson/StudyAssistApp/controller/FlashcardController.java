@@ -27,7 +27,12 @@ public class FlashcardController {
         return flashcardService.createNewCard(flashcardDTO);
     }
 
-    @GetMapping("/")
+    @GetMapping
+    public List<FlashcardDTO> cardsToBeRevised() {
+        return flashcardService.cardsToBeRevised();
+    }
+
+    @GetMapping("/all")
     public List<FlashcardDTO> listAllCards() {
         return flashcardService.listAllCards();
     }
